@@ -1,1 +1,7 @@
-/home/junehan/scripts/apt_upgrade_and_clean.sh
+#!/bin/bash
+# Script to automate regular software upgrades
+
+apt update
+apt upgrade -y
+apt autoclean
+apt autoremove
