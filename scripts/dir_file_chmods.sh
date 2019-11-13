@@ -1,0 +1,1 @@
+/home/junehan/scripts/dir_file_chmods.sh
