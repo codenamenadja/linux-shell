@@ -12,6 +12,10 @@
 ## what_is_shellscript
 [i1]: #what_is_shellscript
 
+1. shellscript?
+
+2. bash?
+
 ## scripts
 [i2]: #scripts
 
