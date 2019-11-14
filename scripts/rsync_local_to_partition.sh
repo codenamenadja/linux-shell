@@ -1,6 +1,8 @@
 #!/bin/bash
-sudo rsync -av ~/myVG_local/elses/ ~/myVG_partitions/elses/
-sudo rsync -av ~/myVG_local/linux/ ~/myVG_partitions/linux/
-sudo rsync -av ~/myVG_local/python/ ~/myVG_partitions/python/
-sudo rsync -av ~/myVG_local/scripts/ ~/myVG_partitions/scripts/
-sudo rsync -av ~/myVG_local/posts/ ~/myVG_partitions/posts/
+if [ -n "${1}" ] 
+then
+sudo lvm vgdisplay | grep ${1} && sudo rsync -av ~/${1}_local/ ~/${1}_partitions/ || echo "no ${1} found."
+else
+    echo "positional argument for VGNAME not provided."
+fi
+exit 0
