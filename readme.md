@@ -43,6 +43,15 @@
 4. following files and your mod will be in check.
 5. done
 
+### LV_mount_toggle
+
+[i2-4]: #LV_mount_toggle
+
+1. execute with sudo and no options.
+2. get lv points from connected usb Volume Group(my_VG).
+3. press y to mount, n to umount else to pass.
+4. done
+
 ## options
 [i3]: options
 

@@ -1,20 +1,18 @@
 #!/bin/bash
 LVNAMES=()
-#    sudo mount /dev/myVG/$lvname ~/usb_myVG/$lvname
-
 sequencial_mount(){
     for lvname in ${LVNAMES[*]}
     do
-        echo "${lvname} to mount?(y to mount, n to unmount)"
+        echo "${lvname} on ${1} to mount?(y to mount, n to unmount)"
         read permission
         if [ $permission == "y" ]
         then
             echo "$permission and, mounts $lvname."
-            sudo mount /dev/mapper/myVG-$lvname ~/myVG_partitions/$lvname/
+            sudo mount /dev/mapper/${1}-$lvname ~/${1}_partitions/$lvname/
         elif [ $permission == "n" ]
         then
             echo "$permission and, umount $lvname."
-            sudo umount /dev/mapper/myVG-$lvname 
+            sudo umount /dev/mapper/${1}-$lvname 
         else
             echo "do noting on $lvname."
         fi
@@ -22,6 +20,19 @@ sequencial_mount(){
 }
 
 pre_error_handler(){
+if [ -z ${1} ]
+then
+    echo "positional argument VG name not specified."
+    exit 0
+fi
+
+vgAvail=`sudo lvm vgscan | grep "${1}"`
+if [ -z $vgAvail ]
+then
+    echo "VG-name you passed ${1}, not found."
+    exit 0
+fi
+
 founds=`sudo lvm lvdisplay | grep "LV Name"`
 all=($founds)
 count=0
@@ -36,12 +47,12 @@ done
 if [ ${#LVNAMES[@]} == 0 ]
 then
     echo "no LV founds."
-    exit 0    
+    exit 0  
 fi
 }
 
 main(){
-    pre_error_handler
-    sequencial_mount
+    pre_error_handler ${1}
+    sequencial_mount ${1}
 }
-main
+main ${1}
