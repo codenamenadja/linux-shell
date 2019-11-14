@@ -14,6 +14,22 @@
 
 1. shellscript?
 
+```bash
+#!/bin/sh
+
+cd /var/backups || exit 0
+
+for FILE in passwd group shadow gshadow; do
+    test test -f /etc/$FILE || continue # -f FILE: FILE exits and is a regular file.
+    cmp -s $FILE.bak /etc/$FILE || continue # compare two files byte to byte. --silent
+    cp -p /etc/$FILE $FILE.bak && chmod 600 $FILE.bak #-p flag preserve=mode,ownership,timestamps.
+done
+```
+* `[ -f /etc/passwd ] && echo yes || echo no`
+* `test -f /etc/nopasswd && echo yes || echo no`
+
+upper 2 is same. test is traditional expression interface, and [] bracket is newer one.
+
 2. bash?
 
 ## scripts
