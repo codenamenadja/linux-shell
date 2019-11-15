@@ -69,16 +69,19 @@ upper 2 is same. test is traditional expression interface, and [] bracket is new
 
 [i2-4]:#LV_mount_toggle
 
-1. execute with sudo and no options.
-2. get lv points from connected usb Volume Group(my_VG).
-3. press y to mount, n to umount else to pass.
-4. done
+1. execute with sudo and 1 option VGNAME.
+2. get lv points from connected usb Volume Group(ie. `./LV_mount_toggle.sh vg_junehan_portable`).
+3. start with create foldername `~/plugged_storage_YOURINPUT`.
+4. press y to mount, n to umount else to pass.
+5. if y? creates folder with LV name and mount. or n? umount and remove dir.
+6. end with try remove dirname `~/plugged_storage_YOURINPUT`. if not empty? pass.
+7. done
 
 ### rsync_scripts
 
 [i2-5]:#rsync_scripts
 
-1. execute from origin.
+1. execute with sudo and no option.
 2. rsync will be happen to git directory. (symlink cannot be catched by git. rsync will be better than hard link or copy)
 3. done
 
@@ -88,7 +91,7 @@ upper 2 is same. test is traditional expression interface, and [] bracket is new
 
 1. execute with sudo and 1 option VGNAME to backup.
 2. uses rsync to backup.
-3. from VGNAME_local to VGNAME_partitions will be rsync.
+3. from `~/local_VGNAME`to `~/plugged_storage_VGNAME` will be rsync.
 4. done
 
 ## options

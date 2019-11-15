@@ -1,7 +1,7 @@
 #!/bin/bash
 if [ -n "${1}" ] 
 then
-sudo lvm vgdisplay | grep ${1} && sudo rsync -av ~/${1}_local/ ~/${1}_partitions/ || echo "no ${1} found."
+sudo lvm vgdisplay | grep ${1} && sudo rsync -av ~/local_${1}/ ~/plugged_stroage_${1}/ || echo "no ${1} found."
 else
     echo "positional argument for VGNAME not provided."
 fi

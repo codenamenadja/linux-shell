@@ -1,22 +1,26 @@
 #!/bin/bash
 LVNAMES=()
 sequencial_mount(){
+    mkdir ~/plugged_storage_${1}
     for lvname in ${LVNAMES[*]}
     do
         echo "${lvname} on ${1} to mount?(y to mount, n to unmount)"
         read permission
         if [ $permission == "y" ]
         then
+            mkdir ~/plugged_storage_${1}/$lvname
             echo "$permission and, mounts $lvname."
-            sudo mount /dev/mapper/${1}-$lvname ~/${1}_partitions/$lvname/
+            sudo mount /dev/mapper/${1}-$lvname ~/plugged_storage_${1}/$lvname/
         elif [ $permission == "n" ]
         then
             echo "$permission and, umount $lvname."
             sudo umount /dev/mapper/${1}-$lvname 
+            rmdir ~/plugged_storage_${1}/${lvname}
         else
             echo "do noting on $lvname."
         fi
     done
+    rmdir ~/plugged_storage_${1}
 }
 
 pre_error_handler(){
@@ -27,7 +31,7 @@ then
 fi
 
 vgAvail=`sudo lvm vgscan | grep "${1}"`
-if [ -z $vgAvail ]
+if [ -z "$vgAvail" ]
 then
     echo "VG-name you passed ${1}, not found."
     exit 0
